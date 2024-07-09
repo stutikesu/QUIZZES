@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-5Ha4Q7v/I6sPlW1H9Kg5uo+yoz5OEVPC3/9qwoefcF7w9TK0Cgj70oql95EMhPhxD+Q2zEqA27j6nKK2NJ6dDQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #contact {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .contact-left {
+            flex-basis: 35%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .contact-left h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .contact-left p {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .contact-left p i {
+            margin-right: 10px;
+            color: #001eff;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: #ababab;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #001eff;
+            transform: translateY(-5px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1em;
+            background-color: plum;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-right {
+            flex-basis: 60%;
+            padding: 20px;
+        }
+
+        .contact-right form {
+            width: 100%;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: linear-gradient(plum,white);
+            padding: 15px;
+            margin: 10px 0;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        form textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        .btn2 {
+            padding: 14px 60px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color:plum;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn2:hover {
+            background-color: #0056b3;
+        }
+
+        @media screen and (max-width: 768px) {
+            #contact {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-left,
+            .contact-right {
+                flex-basis: 100%;
+                margin: 0;
+            }
+
+            .social-icons {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="contact">
+        <div class="container">
+            <div class="contact-left">
+                <h1>Contact Me</h1>
+                <p><i class="fas fa-paper-plane"></i><a href="mailto:email@example.com">stutikesarwani123@gmail.com</a></p>
+                <p><i class="fas fa-phone"></i>9653052697</p>
+                <div class="social-icons">
+                    <a href="https://github.com/stutikesu"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/stuti-kesarwani-519107240/"><i class="fab fa-linkedin"></i></a>
+                </div>
+             
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn2">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxAgXvMmh2ncLvxcSA8oETJUi8T7GYy07dmfuQYcnTCdGdGbkLWZa8md6YCdpvplzmpAQ/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const msg = document.getElementById("msg");
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    msg.innerHTML = "Message Sent Successfully";
+                    setTimeout(function () {
+                        msg.innerHTML = "";
+                    }, 5000);
+                    form.reset();
+                })
+                .catch(error => console.error('Error!', error.message));
+        });
+    </script>
+</body>
+</html>
